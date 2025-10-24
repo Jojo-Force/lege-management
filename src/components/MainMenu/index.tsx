@@ -8,7 +8,7 @@ import {
 import type { MenuProps } from 'antd';
 
 import { Menu } from 'antd';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate,useLocation } from 'react-router-dom';
 import { useState } from 'react';
 
 type MenuItem = Required<MenuProps>['items'][number];
@@ -41,14 +41,30 @@ const items: MenuItem[] = [
 
 const Comp: React.FC = () => {
     const navigateTo = useNavigate()
-    
+    const currentRoute = useLocation();
+    console.log(currentRoute);
+
     const menuClick = (e:{key:string}) =>{
-      console.log('点击了菜单', e.key);
+      // console.log('点击了菜单', e.key);
       // 点击跳转到对应的路由
       navigateTo(e.key);
     }
   
-    const [openkeys, setOpenKeys] = useState(['']);
+    let firstOpenKey:string = "";
+    function findKey(obj:{key:string}){
+      return obj.key === currentRoute.pathname
+    }
+
+    for(let i=0;i<items.length;i++){
+      if(items[i]!['children'] && items[i]!['children'].length > 0 && items[i]!['children'].find(findKey)){
+        firstOpenKey = items[i]!.key as string;
+        break;
+      }
+    }
+
+
+    const [openkeys, setOpenKeys] = useState([firstOpenKey]);
+    //setOpenKeys([currentRoute.pathname]);
     const handleOpenChange = (keys:string[]) =>{
       //展开和回收某项菜单的时候执行这里的代码
       console.log(keys);
@@ -58,7 +74,7 @@ const Comp: React.FC = () => {
     return (
         <Menu 
         theme="dark" 
-        defaultSelectedKeys={['/page1']} 
+        defaultSelectedKeys={[currentRoute.pathname]} 
         mode="inline" 
         items={items} 
         onClick={menuClick}
