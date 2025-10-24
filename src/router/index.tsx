@@ -9,6 +9,13 @@ const User = lazy(()=>import("../views/User"))
 // 懒加载的模式需要我们给他添加一个Loading组件
 import {Navigate} from 'react-router-dom'
 
+const withLoadingComponent = (comp:JSX.element) => {
+    return (
+        <React.Suspense fallback={<div>Loading...</div>}>
+        {comp}
+        </React.Suspense>
+    )
+}
 
 const routes = [
     {
@@ -21,17 +28,11 @@ const routes = [
     },
     {
         path:"/about",
-        element: 
-        <React.Suspense fallback={<div>Loading...</div>}>
-            <About/>
-        </React.Suspense>,
+        element: withLoadingComponent(<About/>),
     },
     {
         path:"/user",
-        element:         
-        <React.Suspense fallback={<div>Loading...</div>}>
-            <User/>
-        </React.Suspense>,
+        element: withLoadingComponent(<User/>),
     }
 ]
 
