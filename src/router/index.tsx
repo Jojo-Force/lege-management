@@ -1,6 +1,7 @@
 import App from '../App'
 import React,{Children, lazy} from 'react'
 import Home from '../views/Home'
+import Login from '../views/Login'
 //const Home = lazy(()=>import("../views/Home"))
 const About = lazy(()=>import("../views/Page301"))
 const User = lazy(()=>import("../views/User"))
@@ -43,6 +44,10 @@ const routes = [
                 element: withLoadingComponent(<Page301/>),
             }
         ]
+    },
+    {
+        path:"/login",
+        element: <Login/>
     },
     // 嵌套路由结束
     // 访问其余路径的时候直接跳到首页
