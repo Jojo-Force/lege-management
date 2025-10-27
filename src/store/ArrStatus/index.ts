@@ -1,4 +1,4 @@
-export default{
+const store = {
     state:{
         sarr:[10,20,30]
     },
@@ -8,5 +8,15 @@ export default{
         }
     },
 
-    sarrpush:"sarrpush"
+    actionNames:{}
 }
+
+let actionNames = {}
+
+//遍历store.actions
+for(let key in store.actions){
+    actionNames[key] = key;
+}
+
+store.actionNames=actionNames;
+export default store

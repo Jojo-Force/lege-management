@@ -1,16 +1,17 @@
-import handleArr from "./index"
+import handler from "./index"
 
-let reducer = (state = {...handleArr.state},action:{type:string,val:number})=>{
+let reducer = (state = {...handler.state},action:{type:string})=>{
     //调用dispatch执行这个函数
     console.log("执行了reducer");
     let newState = JSON.parse(JSON.stringify(state))
-    switch(action.type){
-        case handleArr.sarrpush:
-            handleArr.actions[handleArr.sarrpush](newState,action);
+    for(let keys in handler.actionNames){
+        
+        if(action.type === handler.actionNames[keys]){
+            handler.actions[handler.actionNames[keys]](newState,action);
             break;
-        default:
-            break;
+        }
     }
+    //
     return newState
 }
 export default reducer
