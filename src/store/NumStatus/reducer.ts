@@ -1,12 +1,6 @@
-import handleNum from "./NumStatus"
-import handleArr from "./ArrStatus"
-const defaultState = {
-    // num:handleNum.state.num
-    ...handleNum.state, //解构的写法
-    ...handleArr.state
-}
+import handleNum from "./index"
 
-let reducer = (state = defaultState,action:{type:string,val:number})=>{
+let reducer = (state = {...handleNum.state},action:{type:string,val:number})=>{
     //调用dispatch执行这个函数
     console.log("执行了reducer");
     let newState = JSON.parse(JSON.stringify(state))
