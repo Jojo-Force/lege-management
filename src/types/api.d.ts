@@ -6,6 +6,9 @@
 //     "captchaEnabled":true,
 //     "uuid":"222",
 // }
+
+import type Password from "antd/es/input/Password";
+
 // 验证码的响应类型约束
 interface CaptchaAPIRes {
     msg: string;
@@ -14,3 +17,16 @@ interface CaptchaAPIRes {
     captchaEnabled: boolean;
     uuid: string;
   }
+
+interface LoginAPIReq {
+    username: string;
+    password: string;
+    code: string;
+    uuid: string;
+}
+
+interface LoginAPIRes {
+    msg: string;
+    code: number;
+    token: string;
+}
