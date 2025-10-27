@@ -13,7 +13,7 @@ const View = () =>{
     const changeNum = ()=>{
         //dispatch({type:"字符串（记号）",val:3})//
         //dispatch({type:"add1"})
-        dispatch({type:"add2",val:5})
+        dispatch({type:"add1",val:5})
     }
     return(
         <div className="about">
