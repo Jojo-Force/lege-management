@@ -1,14 +1,23 @@
-import {useSelector} from "react-redux"
+import {useDispatch, useSelector} from "react-redux"
 
 const View = () =>{
+    //获取仓库数据
     const {num} = useSelector((state)=>({
         num:state.num
     }))
 
+    const dispatch = useDispatch()
+    //修改仓库数据
+    const changeNum = ()=>{
+        //dispatch({type:"字符串（记号）",val:3})//
+        //dispatch({type:"add1"})
+        dispatch({type:"add2",val:5})
+    }
     return(
         <div className="about">
             <p>这是Page1页面内容</p>
             <p>{num}</p>
+            <button onClick={changeNum}>按钮</button>
         </div>
     )
 }
