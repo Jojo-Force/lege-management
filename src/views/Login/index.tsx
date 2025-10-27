@@ -3,6 +3,8 @@ import initLoginBg from './init.ts'
 import { useEffect, useState, type ChangeEvent } from 'react'
 import { Button, Input,Space } from 'antd';
 import './login.less'
+import { CaptchaAPI } from '@/request/api';
+
 const View = () => {
 
     // 加载完这个组件之后，加载背景
@@ -33,6 +35,14 @@ const View = () => {
     const goLogin = () =>{
         console.log("用户输入的用户名，密码，验证码分别是：",usernameVal,passwordVal,captchVal)
     }
+
+    const getCaptchaImg = async ()=>{
+        // captchaAPI().then((res)=>{
+        //     console.log(res);
+        // })
+        let capthaAPIRes = await CaptchaAPI();
+        console.log(capthaAPIRes)
+    }
     return (
         <div className={style.loginPage}>
             {/* 存放背景 */}
@@ -52,7 +62,7 @@ const View = () => {
                     <Input.Password placeholder="密码" onChange={passwordChange}/>
                     <div className={style.captchaBox}>
                         <Input placeholder="验证码" onChange={captchChange}/>
-                        <div className={style.captchaImg}>
+                        <div className={style.captchaImg} onClick={getCaptchaImg}>
                             <img height="38px" src="https://www.cwagi.com/common/sec/captcha" alt="" />
                         </div>
                     </div>
