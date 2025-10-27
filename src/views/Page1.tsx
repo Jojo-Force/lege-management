@@ -1,5 +1,5 @@
 import {useDispatch, useSelector} from "react-redux"
-
+import numStatus from "@/store/NumStatus"
 console.log()
 // TS提供了ReturnType，用来获取函数类型的返回值
 const View = () =>{
@@ -20,6 +20,13 @@ const View = () =>{
         dispatch({type:"add2",val:5})
     }
 
+    const changeNum3 = ()=>{
+        //dispatch({type:"字符串（记号）",val:3})//
+        //dispatch({type:"add1"})
+        //异步的写法 redux-thunk的用法
+        dispatch(numStatus.asyncActions.asyncAdd1)
+    }
+
     const changeArr = ()=>{
         //dispatch({type:"字符串（记号）",val:3})//
         //dispatch({type:"add1"})
@@ -35,6 +42,7 @@ const View = () =>{
             <p>{num}</p>
             <button onClick={changeNum}>num1按钮</button>
             <button onClick={changeNum2}>num2按钮</button>
+            <button onClick={changeNum3}>num3异步按钮</button>
             <p>{sarr}</p>
             <button onClick={changeArr}>Arr按钮</button>
         </div>

@@ -10,6 +10,14 @@ const store={
             newState.num+=action.val
         }
     },
+    // 优化redux-thunk的异步写法（魔法Vuex的写法）
+    asyncActions:{
+        asyncAdd1(dispatch:Function){
+            setTimeout(()=>{
+                dispatch({type:"add1"})
+            },1000)
+        }
+    },
 
     actionNames:{}
 }
