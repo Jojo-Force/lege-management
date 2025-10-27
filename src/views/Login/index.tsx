@@ -1,12 +1,13 @@
 import style from './login.module.scss'
 import initLoginBg from './init.ts'
 import { useEffect, useState, type ChangeEvent } from 'react'
-import { Button, Input,Space } from 'antd';
+import { Button, Input, Space,message } from 'antd';
 import './login.less'
-import { CaptchaAPI } from '@/request/api';
+import {useNavigate} from "react-router-dom"
+import { CaptchaAPI,LoginAPI } from '@/request/api';
 
 const View = () => {
-
+    let navigateTo = useNavigate();
     // 加载完这个组件之后，加载背景
     useEffect(()=>{
         initLoginBg();
@@ -36,8 +37,32 @@ const View = () => {
         setCaptchVal(e.target.value);
     }
 
-    const goLogin = () =>{
+    const goLogin = async () =>{
         console.log("用户输入的用户名，密码，验证码分别是：",usernameVal,passwordVal,captchVal)
+        //验证是否有空值
+        if(!usernameVal.trim() || !passwordVal.trim() || !captchVal.trim()){
+            alert("请完整输入信息!")
+            return 
+        }
+
+        let loginAPIRes = await LoginAPI({
+            username:usernameVal,
+            password:passwordVal,
+            code:captchVal,
+            uuid:localStorage.getItem("uuid") as string
+        })
+
+        console.log(loginAPIRes)
+        if(loginAPIRes.code === 200){
+            //1.提示登录成功
+            message.success('登录成功! ')
+            //2.保存token
+            localStorage.setItem("lege-react-management-token",loginAPIRes.token)
+            //3.跳转到/page1
+            navigateTo("/page1")
+            //4.删除本地保存中的uuid
+            localStorage.removeItem("uuid")
+        }
     }
 
     const getCaptchaImg = async ()=>{
