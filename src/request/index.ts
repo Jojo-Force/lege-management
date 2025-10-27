@@ -3,8 +3,8 @@ import axios from "axios"
 // 创建axios实例
 const instance = axios.create({
     // 基本请求路径的抽取
-    //baseURL:"http://tech.wolfcode.cn:23683",
-    baseURL:"https://www.cwagi.com",
+    baseURL:"http://tech.wolfcode.cn:23683",
+    //baseURL:"https://www.cwagi.com",
     // 这个时间是你每次请求的过期时间ms
     timeout:20000
 })

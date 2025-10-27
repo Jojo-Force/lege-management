@@ -11,12 +11,16 @@ const View = () => {
     useEffect(()=>{
         initLoginBg();
         window.onresize= function(){initLoginBg()};
+        getCaptchaImg();
     },[])
 
     //获取用户输入的信息
     const [usernameVal,setUsernameVal] = useState("");//定义用户名信息变量
     const [passwordVal,setPasswordVal] = useState("");//定义密码信息变量
     const [captchVal,setCaptchVal] = useState("");//定义密码信息变量
+
+    const [captchaImg,setCaptchImg] = useState("");
+
     const usernameChange = (e:ChangeEvent<HTMLInputElement>)=>{
         //console.log(e.target.value)
         setUsernameVal(e.target.value);
@@ -42,6 +46,10 @@ const View = () => {
         // })
         let capthaAPIRes = await CaptchaAPI();
         console.log(capthaAPIRes)
+        if(capthaAPIRes.code === 200){
+            setCaptchImg("data:imgae/gif;base64,"+capthaAPIRes.img)
+            localStorage.setItem("uuid",capthaAPIRes.uuid)
+        }
     }
     return (
         <div className={style.loginPage}>
@@ -63,7 +71,7 @@ const View = () => {
                     <div className={style.captchaBox}>
                         <Input placeholder="验证码" onChange={captchChange}/>
                         <div className={style.captchaImg} onClick={getCaptchaImg}>
-                            <img height="38px" src="https://www.cwagi.com/common/sec/captcha" alt="" />
+                            <img height="38px" src={captchaImg} alt="" />
                         </div>
                     </div>
                     <Button type="primary" className="loginBtn" block onClick={goLogin}>登录</Button>
