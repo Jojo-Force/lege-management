@@ -1,8 +1,10 @@
 import {useDispatch, useSelector} from "react-redux"
 
+console.log()
+// TS提供了ReturnType，用来获取函数类型的返回值
 const View = () =>{
     //获取仓库数据
-    const {num} = useSelector((state)=>({
+    const {num} = useSelector((state:RootState)=>({
         num:state.num
     }))
 
