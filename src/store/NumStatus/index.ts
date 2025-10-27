@@ -1,4 +1,4 @@
-export default{
+const store={
     state:{
         num:20
     },
@@ -11,8 +11,16 @@ export default{
         }
     },
 
-    actionNames:{
-        add1:"add1",
-        add2:"add2"
-    }
+    actionNames:{}
 }
+
+let actionNames = {}
+
+//遍历store.actions
+for(let key in store.actions){
+    actionNames[key] = key;
+}
+
+store.actionNames=actionNames;
+// 我们现在想做到actionNames自动生成：
+export default store
