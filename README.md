@@ -6,8 +6,10 @@ lege-management is a template for backend management systems based on React, des
 
 ```bash
 npm i
+```
 
 ## Running
 
 ```bash
 npm run dev
+```
